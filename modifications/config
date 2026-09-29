@@ -4,7 +4,7 @@
 #
 BR2_HAVE_DOT_CONFIG=y
 BR2_EXTERNAL_NAMES="PINETAB2_BR"
-BR2_EXTERNAL_PINETAB2_BR_PATH="@PREFIX@/buildroot_pinetab2-55a00269fbb2e2a20c128778f49cad3395f67c66"
+BR2_EXTERNAL_PINETAB2_BR_PATH="@HERE@/buildroot_pinetab2-55a00269fbb2e2a20c128778f49cad3395f67c66"
 BR2_EXTERNAL_PINETAB2_BR_VERSION=""
 BR2_HOST_GCC_AT_LEAST_4_9=y
 BR2_HOST_GCC_AT_LEAST_5=y
@@ -454,9 +454,9 @@ BR2_XZCAT="xzcat"
 BR2_LZCAT="lzip -d -c"
 BR2_ZSTDCAT="zstdcat"
 BR2_TAR_OPTIONS=""
-BR2_DEFCONFIG="@PREFIX@/buildroot_pinetab2-55a00269fbb2e2a20c128778f49cad3395f67c66/configs/pinetab2v2_defconfig"
-BR2_DL_DIR="@PREFIX@/downloads"
-BR2_HOST_DIR="@PREFIX@/host"
+BR2_DEFCONFIG="@HERE@/buildroot_pinetab2-55a00269fbb2e2a20c128778f49cad3395f67c66/configs/pinetab2v2_defconfig"
+BR2_DL_DIR="@CACHE@/downloads"
+BR2_HOST_DIR="@CACHE@/host"
 
 #
 # Mirrors and Download locations
@@ -5497,7 +5497,7 @@ BR2_TARGET_UBOOT_CUSTOM_PATCH_DIR=""
 #
 
 #
-# Buildroot for PINE64 PineTab2 tablet (in @PREFIX@/buildroot_pinetab2-55a00269fbb2e2a20c128778f49cad3395f67c66)
+# Buildroot for PINE64 PineTab2 tablet (in @HERE@/buildroot_pinetab2-55a00269fbb2e2a20c128778f49cad3395f67c66)
 #
 
 #

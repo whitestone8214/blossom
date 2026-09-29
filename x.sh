@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # In my case:
-# ./zu.sh prepare clean; date > date.build.txt; ./zu.sh build; date >> date.build.txt; sudo ./zu.sh install /dev/sdc
+# ./x.sh prepare clean; date > date.build.txt; ./x.sh build; date >> date.build.txt; sudo ./x.sh install /dev/sdc
 # About 1 hour to build
 
 
@@ -19,7 +19,6 @@ function announce {
 if (test "${1}" = "prepare"); then
 	# Remove?
 	if (test "${2}" = "clean"); then
-		#rm -rf ${_idCommitBRP2}.tar.gz ${_idCommitBR}.tar.gz buildroot_pinetab2-${_idCommitBRP2} buildroot-${_idCommitBR} || exit -1
 		rm -rf buildroot_pinetab2-${_idCommitBRP2} buildroot-${_idCommitBR} || exit -1
 	fi
 
@@ -38,8 +37,6 @@ if (test "${1}" = "prepare"); then
 	fi
 	if (!(test -e "buildroot-${_idCommitBR}")); then
 		tar -xf ${_idCommitBR}.tar.gz || exit -1
-		cp -f ${_here}/modifications/config buildroot-${_idCommitBR}/.config || exit -1
-		sed -i 's|@PREFIX@|'${HOME}'/.cache/buildroot|g;' buildroot-${_idCommitBR}/.config || exit -1
 		cp -f ${_here}/modifications/0001-swig4.5-compatibility.patch buildroot-${_idCommitBR}/boot/uboot/ || exit -1
 		cp -f ${_here}/modifications/rcS buildroot-${_idCommitBR}/package/initscripts/init.d/ || exit -1
 		
@@ -47,6 +44,8 @@ if (test "${1}" = "prepare"); then
 		cd buildroot-${_idCommitBR} || exit -1
 		make BR2_EXTERNAL=${_here}/buildroot_pinetab2-${_idCommitBRP2} pinetab2v2_defconfig || exit -1
 		cd .. || exit -1
+		cp -f ${_here}/modifications/config buildroot-${_idCommitBR}/.config || exit -1
+		sed -i 's|@CACHE@|'${HOME}'/.cache/buildroot|g; s|@HERE@|'$(pwd)'|g;' buildroot-${_idCommitBR}/.config || exit -1
 	fi
 elif (test "${1}" = "build"); then
 	cd buildroot-${_idCommitBR} || exit -1
@@ -70,17 +69,6 @@ elif (test "${1}" = "install"); then
 	if (test "${_type}" = "mm" -o "${_type}" = "nv"); then
 		_boot="${2}p1"
 	fi
-	
-	#if (!(test "${3}" = "force")); then
-	#	echo "WARNING:"
-	#	echo "This will erase everything on ${2}."
-	#	printf "Are you sure? [Yes, do as I say!] "
-	#	read _answer
-	#	if (test "${_answer}" != "Yes, do as I say!"); then
-	#		echo "Bailed out."
-	#		exit -1
-	#	fi
-	#fi
 	
 	# Flash the image first
 	dd if=${_system} of=${2} || exit -1
